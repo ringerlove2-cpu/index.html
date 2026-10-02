@@ -1,0 +1,1530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Seva Pro - Demo Portal</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f3f7fb;
+    color:#12284d
+}
+button,input{font:inherit}
+button{cursor:pointer;border:0}
+
+.hidden{display:none!important}
+
+/* AUTH */
+.login-wrap{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#062957,#1267d8);
+    padding:20px
+}
+.auth-box{
+    width:420px;
+    max-width:100%;
+    background:#fff;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 20px 60px rgba(0,0,0,.25)
+}
+.logo{
+    color:#1267d8;
+    font-size:25px;
+    font-weight:bold
+}
+.logo small{
+    display:block;
+    font-size:11px;
+    color:#777;
+    margin-top:4px
+}
+.auth-box h2{
+    margin-top:28px;
+    margin-bottom:8px
+}
+.auth-box p{
+    color:#718099
+}
+.field{
+    margin:15px 0
+}
+.field label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:7px
+}
+.field input{
+    width:100%;
+    padding:13px;
+    border:1px solid #d8e1ed;
+    border-radius:9px;
+    outline:none
+}
+.field input:focus{
+    border-color:#1267d8
+}
+.primary{
+    width:100%;
+    padding:13px;
+    background:#1267d8;
+    color:#fff;
+    border-radius:9px;
+    font-weight:bold
+}
+.switch{
+    text-align:center;
+    margin-top:16px;
+    font-size:14px
+}
+.switch span{
+    color:#1267d8;
+    font-weight:bold;
+    cursor:pointer
+}
+.demo-note{
+    background:#fff7dc;
+    border:1px solid #efd36a;
+    padding:11px;
+    border-radius:9px;
+    font-size:12px;
+    margin-top:18px;
+    color:#715800
+}
+
+/* LAYOUT */
+.layout{
+    min-height:100vh;
+    display:flex
+}
+.sidebar{
+    width:220px;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    background:#062957;
+    color:white;
+    padding:18px 14px
+}
+.sidebar-logo{
+    font-size:20px;
+    font-weight:bold;
+    padding:10px
+}
+.sidebar-sub{
+    color:#bdd0ed;
+    font-size:11px;
+    padding:0 10px 18px
+}
+.nav button{
+    width:100%;
+    background:transparent;
+    color:#dce8fb;
+    padding:12px;
+    text-align:left;
+    border-radius:8px;
+    margin:3px 0
+}
+.nav button:hover,
+.nav button.active{
+    background:#1267d8;
+    color:white
+}
+.sidebar-card{
+    margin-top:25px;
+    padding:15px;
+    border-radius:11px;
+    background:#082f5f;
+    border:1px solid #1b4c83
+}
+.sidebar-card strong{
+    font-size:24px;
+    display:block;
+    margin-top:5px
+}
+
+.main{
+    margin-left:220px;
+    width:calc(100% - 220px)
+}
+.topbar{
+    height:65px;
+    background:#fff;
+    border-bottom:1px solid #e1e8f0;
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    padding:0 25px;
+    gap:20px
+}
+.user{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    font-size:13px;
+    font-weight:bold
+}
+.avatar{
+    width:37px;
+    height:37px;
+    border-radius:50%;
+    background:#eaf2ff;
+    display:grid;
+    place-items:center
+}
+.content{
+    padding:18px;
+    max-width:1450px;
+    margin:auto
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(100deg,#eef9ff,#fff,#eef8ff);
+    border:1px solid #dcebf7;
+    border-radius:12px;
+    padding:25px;
+    display:flex;
+    justify-content:space-between;
+    gap:20px
+}
+.hero h1{
+    margin:0 0 8px;
+    font-size:25px
+}
+.hero p{
+    margin:0;
+    color:#64758e
+}
+.badges{
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap
+}
+.badge{
+    background:#fff;
+    border:1px solid #dce6f0;
+    padding:9px 12px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold
+}
+
+/* STATS */
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin:14px 0
+}
+.stat{
+    background:white;
+    border:1px solid #dce5ef;
+    border-radius:10px;
+    padding:17px
+}
+.stat small{
+    color:#718099
+}
+.stat strong{
+    display:block;
+    font-size:22px;
+    margin-top:6px
+}
+
+/* SERVICES */
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:20px 0 12px
+}
+.section-title h2{
+    margin:0;
+    font-size:19px
+}
+.services{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px
+}
+.service{
+    background:#fff;
+    border:1px solid #dce5ef;
+    border-radius:10px;
+    padding:16px;
+    text-align:center;
+    transition:.15s
+}
+.service:hover{
+    transform:translateY(-2px);
+    box-shadow:0 7px 20px rgba(20,50,90,.1)
+}
+.service-icon{
+    width:48px;
+    height:48px;
+    margin:auto;
+    display:grid;
+    place-items:center;
+    background:#edf5ff;
+    border-radius:13px;
+    font-size:23px
+}
+.service h3{
+    font-size:14px;
+    margin:9px 0 5px
+}
+.service p{
+    min-height:30px;
+    font-size:11px;
+    color:#718099;
+    margin:0
+}
+.price{
+    color:#1267d8;
+    font-weight:bold;
+    margin:10px
+}
+.service button{
+    width:100%;
+    padding:9px;
+    background:#1267d8;
+    color:#fff;
+    border-radius:8px;
+    font-size:12px;
+    font-weight:bold
+}
+.service.locked button{
+    background:#687b94
+}
+.lock{
+    color:#b77a00;
+    font-size:11px;
+    font-weight:bold;
+    margin:10px
+}
+
+/* BOTTOM */
+.bottom{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:14px;
+    margin-top:15px
+}
+.panel{
+    background:#fff;
+    border:1px solid #dce5ef;
+    border-radius:10px;
+    padding:16px
+}
+.panel h3{
+    margin:0 0 13px
+}
+.transaction{
+    display:grid;
+    grid-template-columns:1.4fr 1fr .8fr .5fr;
+    gap:5px;
+    padding:9px 0;
+    border-bottom:1px solid #edf1f5;
+    font-size:12px
+}
+.completed{
+    color:#139251
+}
+
+/* SERVICE PAGE */
+.service-page{
+    max-width:800px;
+    margin:auto
+}
+.back{
+    background:#edf4ff;
+    color:#1267d8;
+    padding:9px 13px;
+    border-radius:8px;
+    font-weight:bold;
+    margin-bottom:15px
+}
+.form-box{
+    background:#fff;
+    border:1px solid #dce5ef;
+    border-radius:12px;
+    padding:22px
+}
+.form-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px
+}
+.notice{
+    padding:12px;
+    border-radius:9px;
+    background:#fff7dc;
+    border:1px solid #efd36a;
+    font-size:13px;
+    margin-bottom:15px
+}
+.success{
+    background:#eaf9f0;
+    border-color:#bde8cb;
+    color:#176f3d
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,20,50,.55);
+    display:grid;
+    place-items:center;
+    padding:20px;
+    z-index:100
+}
+.modal-box{
+    width:430px;
+    max-width:100%;
+    background:white;
+    border-radius:16px;
+    padding:25px
+}
+.modal-box h2{
+    margin-top:0
+}
+.qr{
+    width:210px;
+    height:210px;
+    margin:18px auto;
+    display:grid;
+    place-items:center;
+    border:10px solid white;
+    box-shadow:0 0 0 1px #ccc;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        #111 0,
+        #111 4px,
+        #fff 4px,
+        #fff 8px
+      )
+}
+.qr span{
+    background:#fff;
+    padding:12px;
+    font-weight:bold;
+    font-size:12px;
+    text-align:center
+}
+.modal-buttons{
+    display:flex;
+    gap:10px
+}
+.modal-buttons button{
+    flex:1;
+    padding:11px;
+    border-radius:8px
+}
+.cancel{
+    background:#edf2f7
+}
+
+/* DEMO LABEL */
+.demo-label{
+    position:fixed;
+    right:12px;
+    bottom:12px;
+    background:#222;
+    color:#fff;
+    padding:8px 13px;
+    border-radius:20px;
+    font-size:11px;
+    z-index:200
+}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+    .services{
+        grid-template-columns:repeat(3,1fr)
+    }
+}
+@media(max-width:800px){
+    .sidebar{
+        width:70px
+    }
+    .sidebar-logo,
+    .sidebar-sub,
+    .sidebar-card,
+    .nav span{
+        display:none
+    }
+    .main{
+        margin-left:70px;
+        width:calc(100% - 70px)
+    }
+    .stats{
+        grid-template-columns:repeat(2,1fr)
+    }
+    .hero{
+        display:block
+    }
+    .badges{
+        margin-top:15px
+    }
+}
+@media(max-width:600px){
+    .services{
+        grid-template-columns:repeat(2,1fr)
+    }
+    .bottom{
+        grid-template-columns:1fr
+    }
+    .form-row{
+        grid-template-columns:1fr
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div id="app"></div>
+
+<script>
+
+/* =========================
+   DEMO DATA
+========================= */
+
+const services = [
+    ["RC / DL PDF","🚗","Vehicle RC & Driving Licence PDF"],
+    ["Aadhaar","🪪","Demo Aadhaar service"],
+    ["PAN Card","💳","New / Update / Download"],
+    ["Voter Card","🗳️","ID / Correction / Download"],
+    ["Ayushman Card","🏥","Health card demo"],
+    ["Learning Licence","📚","Apply / Exam / Download"],
+    ["Driving Licence","🚘","New / Renewal / Duplicate"],
+    ["ABHA Card","🩺","Health account demo"],
+    ["Farmer Card","👨‍🌾","Kisan Card / Farmer ID"],
+    ["Ration Card","🌾","New / Update / Download"],
+    ["Manual DL","📝","Manual Driving Licence demo"],
+    ["Other Services","◉","Other document services"]
+];
+
+let state = {
+    user: JSON.parse(localStorage.getItem("dsp_user") || "null"),
+    unlocked: JSON.parse(localStorage.getItem("dsp_unlocked") || "[]"),
+    transactions: JSON.parse(localStorage.getItem("dsp_transactions") || "[]")
+};
+
+function saveState(){
+    localStorage.setItem("dsp_user",JSON.stringify(state.user));
+    localStorage.setItem("dsp_unlocked",JSON.stringify(state.unlocked));
+    localStorage.setItem("dsp_transactions",JSON.stringify(state.transactions));
+}
+
+function escapeHTML(value){
+    return String(value).replace(/[&<>"']/g,function(c){
+        return {
+            "&":"&amp;",
+            "<":"&lt;",
+            ">":"&gt;",
+            '"':"&quot;",
+            "'":"&#039;"
+        }[c];
+    });
+}
+
+/* =========================
+   AUTH
+========================= */
+
+function showLogin(register=false){
+
+    document.getElementById("app").innerHTML = `
+    <div class="login-wrap">
+        <div class="auth-box">
+
+            <div class="logo">
+                🇮🇳 Digital Seva Pro
+                <small>Government Services Demo Portal</small>
+            </div>
+
+            <h2>${register ? "Create Demo Account" : "Welcome Back"}</h2>
+
+            <p>
+                ${register
+                ? "Register locally to test this demo portal."
+                : "Login to continue to your dashboard."}
+            </p>
+
+            <form id="authForm">
+
+                ${register ? `
+                <div class="field">
+                    <label>Full Name</label>
+                    <input id="regName" required placeholder="Demo User">
+                </div>
+                ` : ""}
+
+                <div class="field">
+                    <label>Mobile / Email</label>
+                    <input id="identity" required placeholder="demo@example.com">
+                </div>
+
+                <div class="field">
+                    <label>Password</label>
+                    <input id="password" type="password" required placeholder="••••••••">
+                </div>
+
+                <button class="primary">
+                    ${register ? "Register" : "Login"}
+                </button>
+
+            </form>
+
+            <div class="switch">
+                ${
+                    register
+                    ? `Already registered?
+                       <span onclick="showLogin(false)">Login</span>`
+                    : `New user?
+                       <span onclick="showLogin(true)">Create account</span>`
+                }
+            </div>
+
+            <div class="demo-note">
+                <b>DEMO ONLY:</b>
+                This portal does not connect to real government systems
+                and does not process real payments.
+            </div>
+
+        </div>
+    </div>
+    `;
+
+    document.getElementById("authForm").onsubmit=function(e){
+
+        e.preventDefault();
+
+        let name = register
+            ? document.getElementById("regName").value
+            : "Demo User";
+
+        let identity =
+            document.getElementById("identity").value;
+
+        state.user={
+            name:name,
+            identity:identity
+        };
+
+        saveState();
+        dashboard();
+    };
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function dashboard(){
+
+    if(!state.user){
+        showLogin(false);
+        return;
+    }
+
+    document.getElementById("app").innerHTML=`
+
+    <div class="layout">
+
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                🇮🇳 Digital Seva Pro
+            </div>
+
+            <div class="sidebar-sub">
+                All Services — DEMO
+            </div>
+
+            <div class="nav">
+
+                <button class="active" onclick="dashboard()">
+                    🏠 <span>Dashboard</span>
+                </button>
+
+                <button onclick="scrollServices()">
+                    ▦ <span>My Services</span>
+                </button>
+
+                <button onclick="scrollServices()">
+                    ＋ <span>Apply New Service</span>
+                </button>
+
+                <button onclick="showHistory()">
+                    ◷ <span>Transaction History</span>
+                </button>
+
+                <button onclick="showProfile()">
+                    👤 <span>Profile</span>
+                </button>
+
+                <button onclick="logout()">
+                    ↪ <span>Logout</span>
+                </button>
+
+            </div>
+
+            <div class="sidebar-card">
+                💰 Demo Service Charge
+                <strong>₹20</strong>
+                <small>Per service</small>
+            </div>
+
+        </aside>
+
+
+        <main class="main">
+
+            <header class="topbar">
+
+                🔔
+
+                <div class="user">
+                    <div class="avatar">👤</div>
+                    ${escapeHTML(state.user.name)}
+                </div>
+
+            </header>
+
+
+            <div class="content">
+
+                <section class="hero">
+
+                    <div>
+                        <h1>
+                            One Platform | Multiple Services
+                        </h1>
+
+                        <p>
+                            Sarkari Kaam Ab Hua Aur Bhi Aasaan —
+                            <b>DEMO UI</b>
+                        </p>
+                    </div>
+
+                    <div class="badges">
+                        <span class="badge">✓ Secure Demo</span>
+                        <span class="badge">✓ Fast UI</span>
+                        <span class="badge">✓ No Real Payment</span>
+                    </div>
+
+                </section>
+
+
+                <section class="stats">
+
+                    <div class="stat">
+                        <small>Demo Wallet</small>
+                        <strong>₹500</strong>
+                    </div>
+
+                    <div class="stat">
+                        <small>Total Services</small>
+                        <strong>${state.transactions.length}</strong>
+                    </div>
+
+                    <div class="stat">
+                        <small>Completed</small>
+                        <strong>
+                            ${
+                              state.transactions.filter(
+                                x=>x.status==="Completed"
+                              ).length
+                            }
+                        </strong>
+                    </div>
+
+                    <div class="stat">
+                        <small>Locked Services</small>
+                        <strong>
+                            ${services.length-state.unlocked.length}
+                        </strong>
+                    </div>
+
+                </section>
+
+
+                <div class="section-title" id="serviceSection">
+
+                    <h2>Our Services</h2>
+
+                    <b>
+                        Demo Service Charge: ₹20
+                    </b>
+
+                </div>
+
+
+                <div class="services">
+
+                    ${renderServices()}
+
+                </div>
+
+
+                <div class="bottom">
+
+                    <div class="panel">
+
+                        <h3>Recent Transactions</h3>
+
+                        ${renderTransactions()}
+
+                    </div>
+
+
+                    <div class="panel">
+
+                        <h3>Quick Links</h3>
+
+                        <button
+                            class="primary"
+                            onclick="showHistory()">
+                            Transaction History
+                        </button>
+
+                        <br><br>
+
+                        <button
+                            class="primary"
+                            onclick="showProfile()">
+                            Profile
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div style="
+                    text-align:center;
+                    color:#718099;
+                    font-size:11px;
+                    padding:25px">
+                    Digital Seva Pro — DEMO PORTAL
+                    <br>
+                    Not affiliated with any government department
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <div class="demo-label">
+        DEMO • No Real Payment
+    </div>
+    `;
+}
+
+
+/* =========================
+   SERVICE CARDS
+========================= */
+
+function renderServices(){
+
+    return services.map((service,index)=>{
+
+        let unlocked =
+            state.unlocked.includes(index);
+
+        return `
+
+        <div class="service ${unlocked ? "" : "locked"}">
+
+            <div class="service-icon">
+                ${service[1]}
+            </div>
+
+            <h3>
+                ${service[0]}
+            </h3>
+
+            <p>
+                ${service[2]}
+            </p>
+
+            <div class="price">
+                ₹20
+            </div>
+
+            ${
+                unlocked
+
+                ? `
+                <button
+                    onclick="openService(${index})">
+                    Open Service
+                </button>
+                `
+
+                : `
+                <div class="lock">
+                    🔒 Locked
+                </div>
+
+                <button
+                    onclick="paymentModal(${index})">
+                    Unlock Demo
+                </button>
+                `
+            }
+
+        </div>
+        `;
+
+    }).join("");
+}
+
+
+/* =========================
+   PAYMENT DEMO
+========================= */
+
+function paymentModal(index){
+
+    let service=services[index];
+
+    document.body.insertAdjacentHTML(
+        "beforeend",
+
+        `
+
+        <div class="modal" id="paymentModal">
+
+            <div class="modal-box">
+
+                <h2>
+                    Demo Payment
+                </h2>
+
+                <p>
+                    Service:
+                    <b>${service[0]}</b>
+                </p>
+
+                <div class="notice">
+
+                    This QR is only a visual placeholder.
+                    <br>
+                    <b>No real money can be paid.</b>
+
+                </div>
+
+                <div class="qr">
+
+                    <span>
+                        DEMO QR<br>
+                        NO REAL PAYMENT
+                    </span>
+
+                </div>
+
+                <p style="text-align:center">
+
+                    <b>Demo Amount: ₹20</b>
+
+                </p>
+
+                <div class="modal-buttons">
+
+                    <button
+                        class="cancel"
+                        onclick="closeModal()">
+                        Cancel
+                    </button>
+
+                    <button
+                        class="primary"
+                        onclick="simulatePayment(${index})">
+                        Simulate Payment
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        `
+    );
+}
+
+
+/* =========================
+   SIMULATE PAYMENT
+========================= */
+
+function simulatePayment(index){
+
+    closeModal();
+
+    document.body.insertAdjacentHTML(
+        "beforeend",
+
+        `
+
+        <div class="modal" id="codeModal">
+
+            <div class="modal-box">
+
+                <h2>
+                    Demo Admit Code
+                </h2>
+
+                <p>
+                    Demo payment completed.
+                    Enter the demo unlock code.
+                </p>
+
+                <div class="notice">
+
+                    Demo Code:
+                    <b>1710</b>
+
+                    <br><br>
+
+                    This is not a real admin credential.
+
+                </div>
+
+                <div class="field">
+
+                    <label>
+                        Enter Demo Code
+                    </label>
+
+                    <input
+                        id="demoCode"
+                        placeholder="Enter code">
+
+                </div>
+
+                <button
+                    class="primary"
+                    onclick="verifyCode(${index})">
+
+                    Unlock Service
+
+                </button>
+
+                <br><br>
+
+                <button
+                    class="cancel"
+                    style="width:100%;padding:11px;border-radius:8px"
+                    onclick="closeModal()">
+
+                    Cancel
+
+                </button>
+
+            </div>
+
+        </div>
+
+        `
+    );
+}
+
+
+/* =========================
+   VERIFY CODE
+========================= */
+
+function verifyCode(index){
+
+    let code =
+        document.getElementById("demoCode").value;
+
+    if(code !== "1710"){
+
+        alert("Incorrect demo code.");
+        return;
+
+    }
+
+    if(!state.unlocked.includes(index)){
+        state.unlocked.push(index);
+    }
+
+    state.transactions.unshift({
+
+        name:services[index][0],
+
+        status:"Completed",
+
+        amount:"₹20",
+
+        date:new Date().toLocaleString()
+
+    });
+
+    saveState();
+
+    closeModal();
+
+    dashboard();
+
+    setTimeout(function(){
+        openService(index);
+    },100);
+
+}
+
+
+/* =========================
+   OPEN SERVICE
+========================= */
+
+function openService(index){
+
+    let service=services[index];
+
+    document.getElementById("app").innerHTML=`
+
+    <div class="layout">
+
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                🇮🇳 Digital Seva Pro
+            </div>
+
+            <div class="sidebar-sub">
+                DEMO PORTAL
+            </div>
+
+            <div class="nav">
+
+                <button onclick="dashboard()">
+                    🏠 <span>Dashboard</span>
+                </button>
+
+                <button class="active">
+                    ▦ <span>Service</span>
+                </button>
+
+                <button onclick="logout()">
+                    ↪ <span>Logout</span>
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <main class="main">
+
+            <header class="topbar">
+
+                <div class="user">
+                    <div class="avatar">👤</div>
+                    ${escapeHTML(state.user.name)}
+                </div>
+
+            </header>
+
+
+            <div class="content service-page">
+
+                <button
+                    class="back"
+                    onclick="dashboard()">
+
+                    ← Back to Dashboard
+
+                </button>
+
+                <h1>
+                    ${service[1]}
+                    ${service[0]}
+                </h1>
+
+
+                <div class="form-box">
+
+                    <div class="notice success">
+
+                        ✓ Demo service unlocked successfully.
+
+                    </div>
+
+                    <h3>
+                        Application Form
+                    </h3>
+
+
+                    <div class="form-row">
+
+                        <div class="field">
+
+                            <label>
+                                Applicant Name
+                            </label>
+
+                            <input
+                                placeholder="Demo Name">
+
+                        </div>
+
+
+                        <div class="field">
+
+                            <label>
+                                Mobile Number
+                            </label>
+
+                            <input
+                                placeholder="Demo Mobile">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Application Notes
+                        </label>
+
+                        <input
+                            placeholder="Demo notes">
+
+                    </div>
+
+
+                    <button
+                        class="primary"
+                        onclick="submitDemo()">
+
+                        Submit Demo Application
+
+                    </button>
+
+
+                    <p style="
+                        color:#718099;
+                        font-size:11px;
+                        margin-top:15px">
+
+                        This is only a demonstration.
+                        No real government application is submitted.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    <div class="demo-label">
+        DEMO • No External Redirect
+    </div>
+
+    `;
+}
+
+
+/* =========================
+   TRANSACTIONS
+========================= */
+
+function renderTransactions(){
+
+    if(state.transactions.length===0){
+
+        return `
+        <p style="color:#718099;font-size:13px">
+            No demo transactions yet.
+        </p>
+        `;
+
+    }
+
+    return state.transactions.slice(0,6).map(x=>`
+
+        <div class="transaction">
+
+            <div>
+                ${escapeHTML(x.name)}
+            </div>
+
+            <div>
+                ${escapeHTML(x.date)}
+            </div>
+
+            <div class="completed">
+                ${escapeHTML(x.status)}
+            </div>
+
+            <div>
+                ${x.amount}
+            </div>
+
+        </div>
+
+    `).join("");
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function showHistory(){
+
+    dashboard();
+
+    setTimeout(function(){
+
+        let bottom =
+            document.querySelector(".bottom");
+
+        if(bottom){
+
+            bottom.scrollIntoView({
+                behavior:"smooth"
+            });
+
+        }
+
+    },100);
+
+}
+
+
+/* =========================
+   SCROLL SERVICES
+========================= */
+
+function scrollServices(){
+
+    dashboard();
+
+    setTimeout(function(){
+
+        let section =
+            document.getElementById("serviceSection");
+
+        if(section){
+
+            section.scrollIntoView({
+                behavior:"smooth"
+            });
+
+        }
+
+    },100);
+
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function showProfile(){
+
+    document.getElementById("app").innerHTML=`
+
+    <div class="layout">
+
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                🇮🇳 Digital Seva Pro
+            </div>
+
+            <div class="sidebar-sub">
+                DEMO PORTAL
+            </div>
+
+            <div class="nav">
+
+                <button onclick="dashboard()">
+                    🏠 <span>Dashboard</span>
+                </button>
+
+                <button class="active">
+                    👤 <span>Profile</span>
+                </button>
+
+                <button onclick="logout()">
+                    ↪ <span>Logout</span>
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <main class="main">
+
+            <header class="topbar">
+
+                <div class="user">
+
+                    <div class="avatar">
+                        👤
+                    </div>
+
+                    ${escapeHTML(state.user.name)}
+
+                </div>
+
+            </header>
+
+
+            <div class="content service-page">
+
+                <h1>
+                    Profile
+                </h1>
+
+                <div class="form-box">
+
+                    <div class="field">
+
+                        <label>
+                            Name
+                        </label>
+
+                        <input
+                            readonly
+                            value="${escapeHTML(state.user.name)}">
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>
+                            Login ID
+                        </label>
+
+                        <input
+                            readonly
+                            value="${escapeHTML(state.user.identity)}">
+
+                    </div>
+
+
+                    <div class="notice">
+
+                        Demo account is stored only
+                        in this browser.
+
+                    </div>
+
+
+                    <button
+                        class="primary"
+                        onclick="dashboard()">
+
+                        Back to Dashboard
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+    `;
+}
+
+
+/* =========================
+   CLOSE MODAL
+========================= */
+
+function closeModal(){
+
+    let modal =
+        document.querySelector(".modal");
+
+    if(modal){
+        modal.remove();
+    }
+
+}
+
+
+/* =========================
+   DEMO SUBMIT
+========================= */
+
+function submitDemo(){
+
+    alert(
+        "Demo application submitted locally.\n\n" +
+        "No real government application was created."
+    );
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+    state.user=null;
+
+    saveState();
+
+    showLogin(false);
+
+}
+
+
+/* =========================
+   START APP
+========================= */
+
+if(state.user){
+
+    dashboard();
+
+}else{
+
+    showLogin(false);
+
+}
+
+</script>
+
+</body>
+</html>
